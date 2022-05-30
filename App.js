@@ -1,9 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet} from 'react-native';
 import NavBar from './Navigation';
+import React from 'react'
+
 
 export default function App() {
+  
   return (
       <NavigationContainer>
         <NavBar/>

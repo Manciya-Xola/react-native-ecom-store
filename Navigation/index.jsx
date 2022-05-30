@@ -7,6 +7,29 @@ import ConstructorsScreen from "../screens/ConstructorsScreen"
 import ResultsScreen from "../screens/ResultsScreen";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import DriverScreen from '../screens/DriverScreen';
+
+
+const Stack = createNativeStackNavigator();
+function DriverNavigator() {
+  return (
+    <Stack.Navigator>
+        <Stack.Screen
+          name="DriversScreen"
+          component={DriversScreen}
+          options={{ title: "Drivers" }}
+        />
+        <Stack.Screen
+          name="DriverScreen"
+          component={DriverScreen}
+          options={{ title: "Driver" }}
+        />
+    </Stack.Navigator>
+  )
+}
+
+
 
 function NavBar() {
   const Tab = createBottomTabNavigator();
@@ -20,9 +43,9 @@ function NavBar() {
         ),
       }}
       />
-      <Tab.Screen name='Drivers' component={DriversScreen}
+      <Tab.Screen name='DriverNavigator' component={DriverNavigator}
         options={{
-          tabBarLabel: 'Drivers',
+          tabBarLabel: 'DriverNavigator',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="car-3-plus" color={color} size={size} />
           ),

@@ -1,12 +1,16 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, ImageBackground } from 'react-native'
+import style from './style'
+import image from '../../assets/image-20220524-201840.png';
 
 function HomeScreen() {
   return (
-    <View>
-      <Text>
-        Home Screen
-      </Text>
+    <View style={style.homeContainer}>
+      <ImageBackground source={image} resizeMode="cover" style={style.image}>
+        {/* <Text style={style.text}>
+          Home Screen
+        </Text> */}
+      </ImageBackground>
     </View>
   )
 }
