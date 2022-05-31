@@ -1,43 +1,35 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  itemContainer: {
-    flexDirection: 'row',
-    width: "100%",
-    justifyContent: "space-between",
-    marginBottom: 10,
-    paddingHorizontal: 5,
+  container: {
+    
   },
-  dateOfBirth:{
-    width: 97,
+  resultsHeader:{
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    backgroundColor: "#37C2D0",
+    borderTopEndRadius: 10,
+    borderTopStartRadius: 10,
+    height: 50
   },
-  content:{
-    fontSize: 16,
-    fontWeight: 'bold', 
-    textAlign: 'center'
+  resultsRow: {
+    marginLeft: 8,
+    flexDirection: "row",
+    height: 40,
+    alignItems:"center",
   },
-
-
-
-  buttonsContainer:{
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-evenly',
+  columnHeader: {
+    width: "20%",
+    justifyContent: "center",
+    alignItems:"center"
   },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: 'black',
+  columnHeaderTxt: {
+    color: "white",
+    fontWeight: "bold",
   },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
-  },
+  columnRowTxt: {
+    width:"25%",
+    textAlign:"center",
+  }
 });

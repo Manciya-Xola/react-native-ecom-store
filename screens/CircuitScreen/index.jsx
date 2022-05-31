@@ -33,19 +33,26 @@ function CircuitScreen() {
   }
   const renderItem = ({ item }) => {
     return (
-      <View style={style.itemContainer}>
-        <View style={style.dateOfBirth}>
-          <Text style={style.content}>{item.circuitName}</Text>
-        </View>
-        <View style={{ width: 96, }}>
-          <Text style={style.content}>{item.Location.locality}</Text>
-        </View>
-        <View style={{ width: 80, }}>
-          <Text style={style.content}>{item.Location.country}</Text>
-        </View>
+      <View style={style.resultsRow}>
+        <Text style={style.columnRowTxt}>{item.circuitName}</Text>
+        <Text style={style.columnRowTxt}>{item.Location.locality}</Text>
+        <Text style={style.columnRowTxt}>{item.Location.country}</Text>
       </View>
     );
   };
+  const resultsHeader = () => (
+    <View style={style.resultsHeader}>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Name</Text>
+      </View>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Locality</Text>
+      </View>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Country</Text>
+      </View>
+    </View>
+  )
   function previousButtonPressed() {
     if (offset >0) {
       setOffset((prevState) =>{return prevState-30})
@@ -57,10 +64,7 @@ function CircuitScreen() {
     }
   }
   return (
-    <View>
-      <Text>
-        Circuit
-      </Text>
+    <View style={style.container}>
       <View style={style.buttonsContainer}>
         <Pressable style={style.button} onPress={previousButtonPressed} >
           <Text style={style.text}>Previous</Text>
@@ -71,10 +75,12 @@ function CircuitScreen() {
       </View>
       {isLoading && <ActivityIndicator size='large' color="#000"/>}
       {isError && <Text>An error occurred</Text>}
-        {!isError && !isLoading && <FlatList
-        data={circuits}
-        renderItem={renderItem}
-        keyExtractor = {(item) => item.circuitId}
+        {!isError && !isLoading && 
+        <FlatList
+          ListHeaderComponent = {resultsHeader}
+          data={circuits}
+          renderItem={renderItem}
+          keyExtractor = {(item) => item.circuitId}
         />
         }
     </View>

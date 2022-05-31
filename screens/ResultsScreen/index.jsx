@@ -20,7 +20,6 @@ function ResultsScreen() {
       const res = await fetch(API_URL);
       const json = await res.json();
       setResults(json.MRData.RaceTable.Races[0].Results);
-      // console.log("hello", results)
       setIsLoading(false);
       setIsError(false)
     } catch (error) {
@@ -30,35 +29,39 @@ function ResultsScreen() {
     finally{
       setIsLoading(false);
     }
-    
   }
   const renderItem = ({ item }) => {
     return (
-      <View style={style.itemContainer}>
-        <View style={style.dateOfBirth}>
-          <Text style={style.content}>{item.position}</Text>
-        </View>
-        <View style={{ width: 96, }}>
-          <Text style={style.content}>{item.Driver.givenName}</Text>
-        </View>
-        {/* <View style={{ width: 80, }}>
-          <Text style={style.content}>{item.Time.time}</Text>
-        </View> */}
-        <View style={{ width: 100, }}>
-          <Text style={style.content}>{item.points}</Text>
-        </View>
+      <View style={style.resultsRow}>
+        <Text style={style.columnRowTxt}>{item.position}</Text>
+        <Text style={style.columnRowTxt}>{item.Driver.givenName}</Text>
+        <Text style={style.columnRowTxt}>{item?.Time?.time}</Text>
+        <Text style={style.columnRowTxt}>{item.points}</Text>
       </View>
     );
   };
-  
+  const resultsHeader = () => (
+    <View style={style.resultsHeader}>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Position</Text>
+      </View>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Driver</Text>
+      </View>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Time</Text>
+      </View>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Points</Text>
+      </View>
+    </View>
+  )
   return (
-    <View>
-      <Text>
-        Results
-      </Text>
+    <View style={style.container}>
       {isLoading && <ActivityIndicator size='large' color="#000"/>}
       {isError && <Text>An error occurred</Text>}
         {!isError && !isLoading && <FlatList
+        ListHeaderComponent = {resultsHeader}
         data={results}
         renderItem={renderItem}
         keyExtractor = {(item) => item.Driver.driverId}

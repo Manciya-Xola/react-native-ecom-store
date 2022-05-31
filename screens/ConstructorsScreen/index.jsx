@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, Text, View, Pressable } from 'react-native'
+import React, { useEffect, useState, useCallback } from 'react'
+import { ActivityIndicator, FlatList, Text, View, Pressable, Linking, Button } from 'react-native'
 import style from './style';
+import { MaterialIcons } from '@expo/vector-icons';
+
 const API_URL='http://ergast.com/api/f1/constructors.json';
 
 function ConstructorsScreen() {
@@ -30,16 +32,25 @@ function ConstructorsScreen() {
     }
     
   }
+  const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+      const supported = await Linking.canOpenURL(url);
+  
+      if (supported) {
+        await Linking.openURL(url);
+      }
+    }, [url]);
+  
+    return <Button title={children} onPress={handlePress} />;
+  };
   const renderItem = ({ item }) => {
     return (
-      <View style={style.itemContainer}>
-        <View style={style.dateOfBirth}>
-          <Text style={style.content}>{item.name}</Text>
-        </View>
-        <View style={{ width: 96, }}>
-          <Text style={style.content}>{item.nationality}</Text>
-        </View>
+      <View style={style.resultsRow}>
+        <Text style={style.columnRowTxt}>{item.name}</Text>
+        <Text style={style.columnRowTxt}>{item.nationality}</Text>
+        <OpenURLButton url={item.url}>click here</OpenURLButton>
       </View>
+      
     );
   };
   function previousButtonPressed() {
@@ -52,22 +63,36 @@ function ConstructorsScreen() {
       setOffset((prevState) =>{return prevState+30})
     }
   }
+  const resultsHeader = () => (
+    <View style={style.resultsHeader}>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Name</Text>
+      </View>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Nationality</Text>
+      </View>
+      <View style={style.columnHeader}>
+        <Text style={style.columnHeaderTxt}>Know More</Text>
+      </View>
+    </View>
+  )
   return (
-    <View>
-      <Text>
-        Constructors Screen
-      </Text>
+    <View style={style.container}> 
       <View style={style.buttonsContainer}>
         <Pressable style={style.button} onPress={previousButtonPressed} >
           <Text style={style.text}>Previous</Text>
         </Pressable>
         <Pressable style={style.button} onPress={nextButtonPressed}>
-          <Text style={style.text}>Next</Text>
+          <Text style={style.text}>
+            Next 
+          </Text>
+          
         </Pressable>
       </View>
       {isLoading && <ActivityIndicator size='large' color="#000"/>}
       {isError && <Text>An error occurred</Text>}
         {!isError && !isLoading && <FlatList
+        ListHeaderComponent = {resultsHeader}
         data={constructors}
         renderItem={renderItem}
         keyExtractor = {(item) => item.constructorId}

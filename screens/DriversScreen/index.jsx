@@ -35,21 +35,26 @@ function DriversScreen({navigation}) {
   function navigateDriver(driverId) {
     navigation.navigate('DriverScreen', { driverId:driverId });
   }
+
   const renderItem = ({ item }) => {
     return (
       <Pressable onPress={()=>navigateDriver(item.driverId)}>
-        <View style={style.itemContainer}>
-          <View style={style.dateOfBirth}>
-            <Text style={style.content}>{item.dateOfBirth}</Text>
+        <View style={style.row}>
+          <View style={style.row_cell_timeplace}>
+            <View style={style.dateOfBirth}>
+              <Text style={style.row_time}>{item.dateOfBirth}</Text>
+            </View>
+            <View style={{ width: 100, }}>
+              <Text style={style.content}>{item.givenName}</Text>
+            </View>
           </View>
-          <View style={{ width: 96, }}>
-            <Text style={style.content}>{item.familyName}</Text>
-          </View>
-          <View style={{ width: 80, }}>
-            <Text style={style.content}>{item.givenName}</Text>
-          </View>
-          <View style={{ width: 100, }}>
-            <Text style={style.content}>{item.nationality}</Text>
+          <View >
+            <View style={{ width: 110, }}>
+              <Text style={style.content}>{item.familyName}</Text>
+            </View>
+            <View >
+              <Text style={style.content}>{item.nationality}</Text>
+            </View>
           </View>
         </View>
       </Pressable>
@@ -66,10 +71,7 @@ function DriversScreen({navigation}) {
     }
   }
   return (
-    <View>
-      <Text>
-        Drivers
-      </Text>
+    <View style={style.mainContainer}>
       <View style={style.buttonsContainer}>
         <Pressable style={style.button} onPress={previousButtonPressed} >
           <Text style={style.text}>Previous</Text>
@@ -85,9 +87,9 @@ function DriversScreen({navigation}) {
           data={drivers}
           renderItem={renderItem}
           keyExtractor = {(item) => item.driverId}
+          style={style.container}
         />
       }
-      
       
     </View>
   )

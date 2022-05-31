@@ -1,4 +1,3 @@
-import { TabActions } from '@react-navigation/routers'
 import React from 'react'
 import HomeScreen from "../screens/HomeScreen";
 import DriversScreen from "../screens/DriversScreen";
@@ -34,7 +33,11 @@ function DriverNavigator() {
 function NavBar() {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarHideOnKeyboard: true
+      }}
+    >
       <Tab.Screen name='Home' component={HomeScreen}
       options={{
         tabBarLabel: 'Home',
@@ -45,7 +48,7 @@ function NavBar() {
       />
       <Tab.Screen name='DriverNavigator' component={DriverNavigator}
         options={{
-          tabBarLabel: 'DriverNavigator',
+          tabBarLabel: 'Drivers',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="car-3-plus" color={color} size={size} />
           ),
